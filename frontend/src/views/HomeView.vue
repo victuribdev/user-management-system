@@ -67,14 +67,14 @@ export default {
   methods: {
     async fetchUsers() {
       try {
-        console.log("Tentando buscar usuários...");
+        console.log("Attempting to fetch users...");
         const url = 'http://localhost:5000/api/users';
-        console.log("URL da requisição:", url);
+        console.log("Request URL:", url);
         const response = await axios.get(url);
-        console.log("Resposta recebida:", response.data);
+        console.log("Response received:", response.data);
         this.users = response.data;
       } catch (error) {
-        console.error('Erro ao buscar usuários:', error);
+        console.error('Error fetching users:', error);
       }
     },
     openUserForm(user = null) {
@@ -91,7 +91,7 @@ export default {
         this.fetchUsers()
         this.showUserForm = false
       } catch (error) {
-        console.error('Erro ao salvar usuário:', error)
+        console.error('Error saving user:', error)
       }
     },
     confirmDelete(user) {
@@ -104,7 +104,7 @@ export default {
         this.fetchUsers()
         this.confirmDeleteDialog = false
       } catch (error) {
-        console.error('Erro ao excluir usuário:', error)
+        console.error('Error deleting user:', error)
       }
     }
   }
