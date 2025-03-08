@@ -49,20 +49,16 @@ def serialize_user(user):
 
 @app.route('/api/test', methods=['GET'])
 def test_route():
-    """Rota de teste para verificar se a API está funcionando"""
     return jsonify({"message": "API is working!"})
 
 @app.route('/api/mongodb-status', methods=['GET'])
 def mongodb_status():
-    """Verifica o status da conexão com MongoDB"""
     try:
         if client is None:
             return jsonify({"status": "disconnected", "message": "MongoDB is not connected"})
         
-        
         db_names = client.list_database_names()
         
-      
         doc_count = 0
         if collection is not None:
             doc_count = collection.count_documents({})
@@ -80,9 +76,7 @@ def mongodb_status():
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
-    """Obtém todos os usuários"""
     if collection is None:
-       
         return jsonify([
             {"_id": "test1", "username": "test_user", "roles": ["tester"], 
              "preferences": {"timezone": "UTC"}, "active": True, "created_ts": time.time()}
@@ -92,12 +86,10 @@ def get_users():
         users = list(collection.find())
         print(f"Found {len(users)} users in database")
         
-        
         for user in users:
             if 'user' in user and 'username' not in user:
                 user['username'] = user['user']
             
-    
             if 'preferences' not in user or not isinstance(user['preferences'], dict):
                 user['preferences'] = {'timezone': user.get('user_timezone', 'UTC')}
             elif 'timezone' not in user['preferences']:
